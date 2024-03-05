@@ -10,5 +10,5 @@ import { HeaderComponent } from './layout/header/header.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'hero_w2m';
+  title = 'Hero App';
 }
