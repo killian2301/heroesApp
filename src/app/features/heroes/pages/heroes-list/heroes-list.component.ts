@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { Hero } from '../../../../core/models/hero.model';
 @Component({
   selector: 'app-heroes-list',
   standalone: true,
@@ -9,5 +10,5 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './heroes-list.component.scss',
 })
 export class HeroesListComponent {
-  heroes = [];
+  heroes: Hero[] = [];
 }

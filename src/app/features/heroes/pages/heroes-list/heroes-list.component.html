@@ -1,4 +1,4 @@
 <ul *ngIf="heroes.length">
-  <li *ngFor="let hero of heroes">{{ hero }}</li>
+  <li *ngFor="let hero of heroes">{{ hero.name }}</li>
 </ul>
 <p *ngIf="!heroes.length">No heroes found.</p>
