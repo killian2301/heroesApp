@@ -1,1 +1,4 @@
-<p>heroes-list works!</p>
+<ul *ngIf="heroes.length">
+  <li *ngFor="let hero of heroes">{{ hero }}</li>
+</ul>
+<p *ngIf="!heroes.length">No heroes found.</p>
