@@ -25,4 +25,12 @@ describe('HeroesListComponent', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('p').textContent).toContain(emptyMessage);
   });
+
+  it('should show a list of heroes name when the list is not empty', () => {
+    component.heroes = [{ name: 'Spiderman' }, { name: 'Batman' }];
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('ul').textContent).toContain('Spiderman');
+    expect(compiled.querySelector('ul').textContent).toContain('Batman');
+  });
 });
