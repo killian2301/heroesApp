@@ -9,5 +9,5 @@ import { Hero } from '../../../../core/models/hero.model';
   styleUrl: './hero-tile.component.scss',
 })
 export class HeroTileComponent {
-  @Input() hero!: Hero;
+  @Input() hero?: Hero;
 }
