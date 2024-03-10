@@ -44,4 +44,13 @@ export class HeroService {
         )
       );
   }
+  deleteHero(heroId: number): Observable<Hero> {
+    return this.httpService
+      .delete<Hero>(`${environment.apiUrl}/heroes/${heroId}`)
+      .pipe(
+        catchError((error) =>
+          this.errorHandler.handle(error, 'Failed to fetch hero')
+        )
+      );
+  }
 }

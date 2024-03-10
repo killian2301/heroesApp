@@ -41,4 +41,11 @@ describe('HeroDetailComponent', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('SPIDERMAN');
   });
+  xit('should be able delete a hero', () => {
+    const spy = jest.spyOn(window, 'confirm').mockReturnValue(true);
+    component.hero = hero;
+    fixture.detectChanges();
+    component.onDeleteHero();
+    expect(spy).toHaveBeenCalled();
+  });
 });
