@@ -1,25 +1,22 @@
-import { AsyncPipe, UpperCasePipe } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { Hero } from '../../../../core/models/hero.model';
 import { HeroService } from '../../services/hero.service';
 
 @Component({
   selector: 'app-hero-detail',
   standalone: true,
-  imports: [UpperCasePipe, AsyncPipe],
+  imports: [UpperCasePipe],
   templateUrl: './hero-detail.component.html',
   styleUrl: './hero-detail.component.scss',
 })
 export class HeroDetailComponent {
-  hero?: Observable<Hero>;
-  constructor(
-    private heroService: HeroService,
-    private router: ActivatedRoute
-  ) {
-    this.router.params.subscribe((params) => {
-      this.hero = this.heroService.getHero(params['id']);
-    });
+  hero?: Hero;
+  constructor(private heroService: HeroService, private route: ActivatedRoute) {
+    this.route.params
+      .pipe(switchMap((params) => this.heroService.getHero(params['id'])))
+      .subscribe((hero) => (this.hero = hero));
   }
 }

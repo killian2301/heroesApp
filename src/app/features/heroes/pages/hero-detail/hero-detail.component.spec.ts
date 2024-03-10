@@ -36,7 +36,7 @@ describe('HeroDetailComponent', () => {
   });
 
   it('should show hero name in capitalize letters', () => {
-    component.hero = of(hero);
+    component.hero = hero;
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('SPIDERMAN');
