@@ -25,7 +25,7 @@ describe('HeroFilterComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should filter heroes', () => {
+  it('should filter heroes when there is a valid query', () => {
     const spy = jest.spyOn(heroFilterService, 'filter');
     component.filter('Spider');
     expect(spy).toHaveBeenCalledWith('Spider');
