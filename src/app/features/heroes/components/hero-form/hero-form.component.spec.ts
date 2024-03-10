@@ -28,4 +28,10 @@ describe('HeroFormComponent', () => {
     component.onSubmit();
     expect(spy).toHaveBeenCalledWith({ name: 'spiderman' });
   });
+
+  it('name field should be required', () => {
+    const name = component.heroForm.get('name');
+    name?.setValue('');
+    expect(name?.valid).toBeFalsy();
+  });
 });
