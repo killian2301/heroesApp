@@ -20,8 +20,8 @@ describe('HeroTileComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show hero name', () => {
-    component.hero = { name: 'Spiderman' };
+  it('should show capitalize hero name', () => {
+    component.hero = { name: 'spiderman' };
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('li').textContent).toContain('Spiderman');
