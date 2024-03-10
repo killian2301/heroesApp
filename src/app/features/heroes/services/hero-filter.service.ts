@@ -9,7 +9,6 @@ import {
 } from 'rxjs';
 import { Hero } from '../../../core/models/hero.model';
 import { HeroService } from '../../../core/services/hero.service';
-import { HttpService } from '../../../core/services/http.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +16,7 @@ import { HttpService } from '../../../core/services/http.service';
 export class HeroFilterService {
   query: BehaviorSubject<string> = new BehaviorSubject<string>('');
   filteredHeroes: BehaviorSubject<Hero[]> = new BehaviorSubject<Hero[]>([]);
-  constructor(
-    private httpService: HttpService,
-    private heroService: HeroService
-  ) {
+  constructor(private heroService: HeroService) {
     this.setUpSubscription();
   }
 
