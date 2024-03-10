@@ -1,5 +1,10 @@
 import { Component, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Hero } from '../../../../core/models/hero.model';
 
 @Component({
@@ -24,7 +29,7 @@ export class HeroFormComponent {
 
   createForm() {
     this.heroForm = this.fb.group({
-      name: [''],
+      name: ['', Validators.required],
     });
   }
 }
