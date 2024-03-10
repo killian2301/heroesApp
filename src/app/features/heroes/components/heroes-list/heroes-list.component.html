@@ -1,10 +1,11 @@
-<ul *ngIf="heroes.length; else noHeroesMessage">
-  <app-hero-tile
-    *ngFor="let hero of heroes"
-    [hero]="hero"
-    [routerLink]="['/heroes', hero.id]"
-  />
-</ul>
-<ng-template #noHeroesMessage>
+@if (heroes.length) {
+  <ul>
+    <app-hero-tile
+      *ngFor="let hero of heroes"
+      [hero]="hero"
+      [routerLink]="['/heroes', hero.id]"
+    />
+  </ul>
+} @else {
   <p>No heroes found.</p>
-</ng-template>
+}
