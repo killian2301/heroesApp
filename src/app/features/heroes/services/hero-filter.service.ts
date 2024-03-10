@@ -15,8 +15,10 @@ import { HeroService } from '../../../core/services/hero.service';
   providedIn: 'root',
 })
 export class HeroFilterService {
-  query: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  filteredHeroes: BehaviorSubject<Hero[]> = new BehaviorSubject<Hero[]>([]);
+  querySubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  filteredHeroesSubject: BehaviorSubject<Hero[]> = new BehaviorSubject<Hero[]>(
+    []
+  );
   constructor(
     private heroService: HeroService,
     private errorHandler: ErrorHandlerService
@@ -25,17 +27,17 @@ export class HeroFilterService {
   }
 
   private setUpSubscription(): void {
-    this.query
+    this.querySubject
       .pipe(
         debounceTime(500),
         switchMap((filterQuery) => this.fetchFilteredHeroes(filterQuery)),
         catchError(this.errorHandler.handle)
       )
-      .subscribe((heroes) => this.filteredHeroes.next(heroes));
+      .subscribe((heroes) => this.filteredHeroesSubject.next(heroes));
   }
 
   filter(query: string): void {
-    this.query.next(query);
+    this.querySubject.next(query);
   }
 
   fetchFilteredHeroes(query: string): Observable<Hero[]> {
@@ -48,6 +50,6 @@ export class HeroFilterService {
   }
 
   getFilteredHeroes(): Observable<Hero[]> {
-    return this.filteredHeroes.asObservable();
+    return this.filteredHeroesSubject.asObservable();
   }
 }

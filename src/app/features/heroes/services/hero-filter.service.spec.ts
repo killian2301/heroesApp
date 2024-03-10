@@ -25,9 +25,9 @@ describe('HeroFilterService', () => {
 
   it('should save query', () => {
     const query = 'spider';
-    service.query = new BehaviorSubject('');
+    service.querySubject = new BehaviorSubject('');
     service.filter(query);
-    expect(service.query.value).toBe(query);
+    expect(service.querySubject.value).toBe(query);
   });
 
   it('should fetch heroes to the API', async () => {
