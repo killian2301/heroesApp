@@ -15,12 +15,16 @@ export class HeroFormComponent {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    this.heroForm = this.fb.group({
-      name: [''],
-    });
+    this.createForm();
   }
 
   onSubmit() {
     this.heroSubmitted.emit(this.heroForm.value);
+  }
+
+  createForm() {
+    this.heroForm = this.fb.group({
+      name: [''],
+    });
   }
 }
