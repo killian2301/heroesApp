@@ -8,7 +8,7 @@ import { HeroFilterComponent } from '../../components/hero-filter/hero-filter.co
 import { HeroTileComponent } from '../../components/hero-tile/hero-tile.component';
 import { HeroFilterService } from '../../services/hero-filter.service';
 @Component({
-  selector: 'app-heroes-list',
+  selector: 'app-heroes',
   standalone: true,
   imports: [
     CommonModule,
@@ -18,8 +18,8 @@ import { HeroFilterService } from '../../services/hero-filter.service';
     HttpClientModule,
   ],
   providers: [HeroFilterService],
-  templateUrl: './heroes-list.component.html',
-  styleUrl: './heroes-list.component.scss',
+  templateUrl: './heroes.component.html',
+  styleUrl: './heroes.component.scss',
 })
 export class HeroesListComponent implements OnInit, OnDestroy {
   heroes: Hero[] = [];

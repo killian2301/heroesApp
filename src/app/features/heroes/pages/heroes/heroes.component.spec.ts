@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HeroesListComponent } from './heroes-list.component';
+import { HeroesListComponent } from './heroes.component';
 
 describe('HeroesListComponent', () => {
   let component: HeroesListComponent;
