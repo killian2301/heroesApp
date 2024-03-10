@@ -1,9 +1,9 @@
 {
   heroes: [
-    { name: "spiderman" },
-    { name: "superman" },
-    { name: "batman" },
-    { name: "ironman" },
-    { name: "spiderwoman" },
+    { id: 1, name: "spiderman" },
+    { id: 2, name: "superman" },
+    { id: 3, name: "batman" },
+    { id: 4, name: "ironman" },
+    { id: 5, name: "spiderwoman" },
   ],
 }
