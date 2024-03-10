@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Hero } from '../../../../core/models/hero.model';
 import { HeroFilterService } from '../../services/hero-filter.service';
@@ -8,7 +9,7 @@ import { HeroTileComponent } from '../hero-tile/hero-tile.component';
 @Component({
   selector: 'app-heroes-list',
   standalone: true,
-  imports: [CommonModule, HeroTileComponent],
+  imports: [CommonModule, HeroTileComponent, RouterModule],
   templateUrl: './heroes-list.component.html',
   styleUrl: './heroes-list.component.scss',
 })
