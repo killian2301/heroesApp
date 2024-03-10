@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BehaviorSubject, firstValueFrom, of } from 'rxjs';
-import { HeroService } from '../../../core/services/hero.service';
 import { HttpService } from '../../../core/services/http.service';
 import { HeroFilterService } from './hero-filter.service';
+import { HeroService } from './hero.service';
 
 describe('HeroFilterService', () => {
   let service: HeroFilterService;

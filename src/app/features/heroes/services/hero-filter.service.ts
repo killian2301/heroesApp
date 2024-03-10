@@ -9,7 +9,7 @@ import {
 } from 'rxjs';
 import { Hero } from '../../../core/models/hero.model';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
-import { HeroService } from '../../../core/services/hero.service';
+import { HeroService } from './hero.service';
 
 @Injectable({
   providedIn: 'root',
