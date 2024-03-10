@@ -9,6 +9,6 @@ export class Hero {
 
   static create(heroForm: Omit<Hero, 'id'>): Hero {
     const { name } = heroForm;
-    return new Hero(name);
+    return new Hero(name.toLowerCase());
   }
 }
