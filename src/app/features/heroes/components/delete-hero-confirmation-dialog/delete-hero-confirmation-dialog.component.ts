@@ -1,3 +1,4 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -18,6 +19,7 @@ import { Hero } from '../../../../core/models/hero.model';
     MatDialogClose,
     MatDialogTitle,
     MatDialogContent,
+    TitleCasePipe,
   ],
   templateUrl: './delete-hero-confirmation-dialog.component.html',
   styleUrl: './delete-hero-confirmation-dialog.component.scss',
