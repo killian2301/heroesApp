@@ -1,14 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { Hero } from '../../../../core/models/hero.model';
 import { HeroDetailComponent } from './hero-detail.component';
 
 describe('HeroDetailComponent', () => {
+  const hero: Hero = { id: 1, name: 'spiderman' };
+
   let component: HeroDetailComponent;
   let fixture: ComponentFixture<HeroDetailComponent>;
+  let activatedRouteMock: ActivatedRoute;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeroDetailComponent],
+      imports: [HeroDetailComponent, HttpClientTestingModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ id: 1 }),
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroDetailComponent);
@@ -21,7 +36,7 @@ describe('HeroDetailComponent', () => {
   });
 
   it('should show hero name in capitalize letters', () => {
-    component.hero = { name: 'spiderman' };
+    component.hero = of(hero);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('SPIDERMAN');

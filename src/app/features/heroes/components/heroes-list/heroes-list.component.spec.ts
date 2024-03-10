@@ -1,11 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeroesListComponent } from './heroes-list.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Hero } from '../../../../core/models/hero.model';
+import { HeroesListComponent } from './heroes-list.component';
 
 describe('HeroesListComponent', () => {
   let component: HeroesListComponent;
   let fixture: ComponentFixture<HeroesListComponent>;
+  const heroes: Hero[] = [
+    { id: 1, name: 'spiderman' },
+    { id: 2, name: 'Batman' },
+  ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,7 +33,7 @@ describe('HeroesListComponent', () => {
   });
 
   it('should show a list of heroes name when the list is not empty', () => {
-    component.heroes = [{ name: 'Spiderman' }, { name: 'Batman' }];
+    component.heroes = heroes;
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('ul').textContent).toContain('Spiderman');

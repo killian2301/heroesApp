@@ -9,6 +9,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'heroes/:id',
+    loadComponent: () =>
+      import('./features/heroes/pages/hero-detail/hero-detail.component').then(
+        (c) => c.HeroDetailComponent
+      ),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

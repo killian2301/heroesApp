@@ -1,10 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { Hero } from '../../../../core/models/hero.model';
 import { HeroTileComponent } from './hero-tile.component';
 
 describe('HeroTileComponent', () => {
   let component: HeroTileComponent;
   let fixture: ComponentFixture<HeroTileComponent>;
+  const heroes: Hero[] = [{ id: 1, name: 'spiderman' }];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,7 +23,7 @@ describe('HeroTileComponent', () => {
   });
 
   it('should show capitalize hero name', () => {
-    component.hero = { name: 'spiderman' };
+    component.hero = heroes[0];
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('li').textContent).toContain('Spiderman');

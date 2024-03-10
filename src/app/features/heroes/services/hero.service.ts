@@ -13,4 +13,7 @@ export class HeroService {
   getHeroes(): Observable<Hero[]> {
     return this.httpService.get(`${environment.apiUrl}/heroes`);
   }
+  getHero(id: number): Observable<Hero> {
+    return this.httpService.get(`${environment.apiUrl}/heroes/${id}`);
+  }
 }
