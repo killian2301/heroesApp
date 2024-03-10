@@ -8,10 +8,9 @@ describe('NewHeroComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewHeroComponent]
-    })
-    .compileComponents();
-    
+      imports: [NewHeroComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(NewHeroComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -19,5 +18,10 @@ describe('NewHeroComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have a title', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('New Hero');
   });
 });
