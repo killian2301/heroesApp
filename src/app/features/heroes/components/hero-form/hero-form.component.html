@@ -1,1 +1,6 @@
-<form (submit)="onSubmit($event)"></form>
+<form [formGroup]="heroForm" (submit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" formControlName="name" />
+  </div>
+</form>
