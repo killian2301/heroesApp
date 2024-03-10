@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./features/heroes/pages/heroes/heroes.component').then(
-        (c) => c.HeroesListComponent
+        (c) => c.HeroesComponent
       ),
   },
   {
