@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -6,17 +6,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { Hero } from '../../../../core/models/hero.model';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-hero-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ButtonComponent],
   templateUrl: './hero-form.component.html',
   styleUrl: './hero-form.component.scss',
 })
 export class HeroFormComponent implements OnInit {
   heroForm!: FormGroup;
-  heroSubmitted: EventEmitter<Hero> = new EventEmitter();
+  @Output() heroSubmitted: EventEmitter<Hero> = new EventEmitter();
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {

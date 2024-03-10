@@ -1,6 +1,11 @@
-<form [formGroup]="heroForm" (submit)="onSubmit()">
+<form [formGroup]="heroForm">
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" class="form-control" id="name" formControlName="name" />
   </div>
 </form>
+<app-button
+  label="Save"
+  (click)="onSubmit()"
+  [disabled]="heroForm.invalid"
+></app-button>

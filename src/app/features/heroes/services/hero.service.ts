@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Hero } from '../../../core/models/hero.model';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
@@ -35,9 +35,11 @@ export class HeroService {
 
   saveHero(hero: Omit<Hero, 'id'>): Observable<Hero> {
     const newHero = Hero.create(hero);
+    console.log(newHero);
     return this.httpService
       .post<Hero>(`${environment.apiUrl}/heroes`, newHero)
       .pipe(
+        tap(console.log),
         catchError((error) =>
           this.errorHandler.handle(error, 'Failed to fetch hero')
         )
