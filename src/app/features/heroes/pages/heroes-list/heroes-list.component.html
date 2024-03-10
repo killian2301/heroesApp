@@ -1,7 +1,13 @@
-<ul *ngIf="heroes.length; else noHeroesMessage">
-  <app-hero-tile *ngFor="let hero of heroes" [hero]="hero"></app-hero-tile>
-</ul>
+<section>
+  <h1>Heroes</h1>
 
-<ng-template #noHeroesMessage>
-  <p>No heroes found.</p>
-</ng-template>
+  <app-hero-filter></app-hero-filter>
+
+  <ul *ngIf="heroes.length; else noHeroesMessage">
+    <app-hero-tile *ngFor="let hero of heroes" [hero]="hero"></app-hero-tile>
+  </ul>
+
+  <ng-template #noHeroesMessage>
+    <p>No heroes found.</p>
+  </ng-template>
+</section>
