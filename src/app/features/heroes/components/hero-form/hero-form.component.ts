@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,7 +14,7 @@ import { Hero } from '../../../../core/models/hero.model';
   templateUrl: './hero-form.component.html',
   styleUrl: './hero-form.component.scss',
 })
-export class HeroFormComponent {
+export class HeroFormComponent implements OnInit {
   heroForm!: FormGroup;
   heroSubmitted: EventEmitter<Hero> = new EventEmitter();
   constructor(private fb: FormBuilder) {}
