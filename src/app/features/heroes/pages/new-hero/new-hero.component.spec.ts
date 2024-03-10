@@ -24,4 +24,9 @@ describe('NewHeroComponent', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('New Hero');
   });
+
+  it('should have a form', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector('form')).toBeTruthy();
+  });
 });
