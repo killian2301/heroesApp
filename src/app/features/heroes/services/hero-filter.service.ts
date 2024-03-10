@@ -48,7 +48,7 @@ export class HeroFilterService {
       ),
       catchError((error) => {
         console.error(error);
-        return of([]);
+        return of([] as Hero[]);
       })
     );
   }
