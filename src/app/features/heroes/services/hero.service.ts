@@ -34,10 +34,7 @@ export class HeroService {
   }
 
   saveHero(hero: Omit<Hero, 'id'>): Observable<Hero> {
-    const newHero: Hero = {
-      id: Math.floor(Math.random() * 100),
-      ...hero,
-    };
+    const newHero = Hero.create(hero);
     return this.httpService
       .post<Hero>(`${environment.apiUrl}/heroes`, newHero)
       .pipe(
