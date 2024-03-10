@@ -7,8 +7,11 @@ import { of } from 'rxjs';
 export class ErrorHandlerService {
   constructor() {}
 
-  handle(error: any) {
+  handle(error: any, message: string, defaultValue?: any) {
     console.error(error);
-    return of([]);
+    if (defaultValue) {
+      return of(defaultValue);
+    }
+    throw new Error(message);
   }
 }

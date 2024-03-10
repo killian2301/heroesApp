@@ -1,19 +1,49 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Hero } from '../../../core/models/hero.model';
+import { ErrorHandlerService } from '../../../core/services/error-handler.service';
 import { HttpService } from '../../../core/services/http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HeroService {
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private errorHandler: ErrorHandlerService
+  ) {}
 
   getHeroes(): Observable<Hero[]> {
-    return this.httpService.get(`${environment.apiUrl}/heroes`);
+    return this.httpService
+      .get<Hero[]>(`${environment.apiUrl}/heroes`)
+      .pipe(
+        catchError((error) =>
+          this.errorHandler.handle(error, 'Failed to fetch heroes', [])
+        )
+      );
   }
   getHero(id: number): Observable<Hero> {
-    return this.httpService.get(`${environment.apiUrl}/heroes/${id}`);
+    return this.httpService
+      .get<Hero>(`${environment.apiUrl}/heroes/${id}`)
+      .pipe(
+        catchError((error) =>
+          this.errorHandler.handle(error, 'Failed to fetch hero')
+        )
+      );
+  }
+
+  saveHero(hero: Omit<Hero, 'id'>): Observable<Hero> {
+    const newHero: Hero = {
+      id: Math.floor(Math.random() * 100),
+      ...hero,
+    };
+    return this.httpService
+      .post<Hero>(`${environment.apiUrl}/heroes`, newHero)
+      .pipe(
+        catchError((error) =>
+          this.errorHandler.handle(error, 'Failed to fetch hero')
+        )
+      );
   }
 }

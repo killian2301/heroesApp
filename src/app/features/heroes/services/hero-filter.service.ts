@@ -30,8 +30,7 @@ export class HeroFilterService {
     this.querySubject
       .pipe(
         debounceTime(500),
-        switchMap((filterQuery) => this.fetchFilteredHeroes(filterQuery)),
-        catchError(this.errorHandler.handle)
+        switchMap((filterQuery) => this.fetchFilteredHeroes(filterQuery))
       )
       .subscribe((heroes) => this.filteredHeroesSubject.next(heroes));
   }
@@ -45,7 +44,9 @@ export class HeroFilterService {
       map((heroes) =>
         heroes.filter((hero) => hero.name.includes(query.toLowerCase()))
       ),
-      catchError(this.errorHandler.handle)
+      catchError((error) =>
+        this.errorHandler.handle(error, 'Failed to fetch heroes', [])
+      )
     );
   }
 
