@@ -2,6 +2,7 @@ import { Component, NgZone, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Hero } from '../../../../core/models/hero.model';
+import { NotificationService } from '../../../../shared/services/notification.service';
 import { HeroFormComponent } from '../../components/hero-form/hero-form.component';
 import { HeroService } from '../../services/hero.service';
 
@@ -21,6 +22,7 @@ export class NewHeroComponent implements OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private ngZone: NgZone,
+    private notificationService: NotificationService,
   ) {
     this.initializeComponent();
   }
@@ -34,16 +36,12 @@ export class NewHeroComponent implements OnDestroy {
     this.destroy$.complete();
   }
   private initializeComponent() {
-    this.activatedRoute.params.pipe(takeUntil(this.destroy$)).subscribe({
-      next: (params) => {
-        const heroId = params['id'];
-        if (!heroId) return;
-        this.mode = 'edit';
-        this.loadHero(heroId);
-      },
-      error: (error) => console.error('Error loading hero', error),
-    });
+    const heroId = this.activatedRoute.snapshot.params['id'];
+    if (!heroId) return;
+    this.mode = 'edit';
+    this.loadHero(heroId);
   }
+
   private loadHero(heroId: number): void {
     this.heroService
       .getHero(heroId)
@@ -58,7 +56,10 @@ export class NewHeroComponent implements OnDestroy {
       .saveHero(hero)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        complete: () => this.goBackToHeroesList(),
+        next: () => {
+          this.notificationService.success('Hero saved');
+          this.goBackToHeroesList();
+        },
         error: (error) => console.error('Failed to save hero', error),
       });
   }
@@ -67,7 +68,10 @@ export class NewHeroComponent implements OnDestroy {
       .updateHero(hero)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        complete: () => this.goBackToHeroesList(),
+        next: () => {
+          this.notificationService.success('Hero updated');
+          this.goBackToHeroesList();
+        },
         error: (error) => console.error('Failed to save hero', error),
       });
   }
