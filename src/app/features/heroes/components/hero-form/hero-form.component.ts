@@ -22,7 +22,7 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
   styleUrl: './hero-form.component.scss',
 })
 export class HeroFormComponent implements OnChanges {
-  @Input() heroToEdit!: Hero;
+  @Input() heroToEdit?: Hero;
   @Output() heroSubmitted: EventEmitter<Hero> = new EventEmitter();
   heroForm: FormGroup = this.getEmptyForm();
 

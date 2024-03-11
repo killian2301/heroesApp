@@ -39,4 +39,17 @@ describe('HeroFormComponent', () => {
     name?.setValue('');
     expect(name?.valid).toBeFalsy();
   });
+
+  it('should create an empty form when no hero is passed', () => {
+    component.heroToEdit = undefined;
+    fixture.detectChanges();
+    expect(component.heroForm.get('name')?.value).toBe('');
+  });
+
+  it('should fill form with hero data when hero is passed', () => {
+    component.heroToEdit = hero;
+    component.ngOnChanges();
+    fixture.detectChanges();
+    expect(component.heroForm.get('name')?.value).toBe('spiderman');
+  });
 });
