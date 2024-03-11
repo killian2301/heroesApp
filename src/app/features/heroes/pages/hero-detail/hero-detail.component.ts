@@ -16,7 +16,7 @@ import { HeroService } from '../../services/hero.service';
 })
 export class HeroDetailComponent implements OnInit, OnDestroy {
   hero!: Hero;
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(
     private heroService: HeroService,
     private route: ActivatedRoute,

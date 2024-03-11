@@ -16,7 +16,7 @@ import { DeleteHeroConfirmationDialogComponent } from '../delete-hero-confirmati
 export class DeleteHeroComponent {
   @Input() hero!: Hero;
   @Output() heroDeleted = new EventEmitter<boolean>();
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     public dialog: MatDialog,

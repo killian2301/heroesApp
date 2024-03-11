@@ -12,21 +12,25 @@ import { HeroFilterService } from '../../services/hero-filter.service';
 })
 export class HeroFilterComponent implements OnInit, OnDestroy {
   filterControl: FormControl = new FormControl('');
-  unsubscriber: Subject<boolean> = new Subject();
+  private destroy$: Subject<boolean> = new Subject();
   constructor(private heroFilterService: HeroFilterService) {}
 
   ngOnInit() {
+    this.listenForFilterChanges();
+  }
+
+  private listenForFilterChanges() {
     this.filterControl.valueChanges
-      .pipe(takeUntil(this.unsubscriber))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((query) => this.filter(query));
   }
 
-  filter(query: string) {
-    this.heroFilterService.filter(query);
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 
-  ngOnDestroy(): void {
-    this.unsubscriber.next(true);
-    this.unsubscriber.complete();
+  private filter(query: string) {
+    this.heroFilterService.filter(query);
   }
 }
