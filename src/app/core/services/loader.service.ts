@@ -13,7 +13,6 @@ export class LoaderService {
       this.counter++;
       this.isLoading.next(true);
     }
-    console.log(this.counter);
   }
   hide() {
     if (this.counter >= 1) {
