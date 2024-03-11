@@ -17,9 +17,7 @@ export class LoaderService {
   hide() {
     if (this.counter >= 1) {
       this.counter = 0;
-      setTimeout(() => {
-        this.isLoading.next(false);
-      }, 200);
+      this.isLoading.next(false);
     }
   }
 }

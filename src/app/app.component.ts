@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -8,7 +7,7 @@ import { LoaderService } from './core/services/loader.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoaderComponent, AsyncPipe],
+  imports: [RouterOutlet, LoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
