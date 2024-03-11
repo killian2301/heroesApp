@@ -32,15 +32,13 @@ export class HeroService {
         ),
       );
   }
-
   saveHero(hero: Omit<Hero, 'id'>): Observable<Hero> {
     const newHero = Hero.create(hero);
-    console.log(newHero);
     return this.httpService
       .post<Hero>(`${environment.apiUrl}/heroes`, newHero)
       .pipe(
         catchError((error) =>
-          this.errorHandler.handle(error, 'Failed to fetch hero'),
+          this.errorHandler.handle(error, 'Failed to save hero'),
         ),
       );
   }
@@ -49,17 +47,16 @@ export class HeroService {
       .delete<Hero>(`${environment.apiUrl}/heroes/${heroId}`)
       .pipe(
         catchError((error) =>
-          this.errorHandler.handle(error, 'Failed to fetch hero'),
+          this.errorHandler.handle(error, 'Failed to delete hero'),
         ),
       );
   }
-
   updateHero(hero: Hero) {
     return this.httpService
       .put<Hero>(`${environment.apiUrl}/heroes/${hero.id}`, hero)
       .pipe(
         catchError((error) =>
-          this.errorHandler.handle(error, 'Failed to fetch hero'),
+          this.errorHandler.handle(error, 'Failed to update hero'),
         ),
       );
   }
