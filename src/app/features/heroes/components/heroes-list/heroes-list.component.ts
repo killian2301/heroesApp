@@ -15,19 +15,19 @@ import { HeroTileComponent } from '../hero-tile/hero-tile.component';
 })
 export class HeroesListComponent implements OnInit, OnDestroy {
   heroes: Hero[] = [];
-  unsubscriber = new Subject();
+  destroy$ = new Subject();
 
   constructor(private heroFilterService: HeroFilterService) {}
 
   ngOnInit() {
     this.heroFilterService
       .getFilteredHeroes()
-      .pipe(takeUntil(this.unsubscriber))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((heroes) => (this.heroes = heroes));
   }
 
   ngOnDestroy(): void {
-    this.unsubscriber.next(true);
-    this.unsubscriber.complete();
+    this.destroy$.next(true);
+    this.destroy$.complete();
   }
 }
