@@ -1,2 +1,4 @@
-<app-header [title]="title" />
+@if (isLoading) {
+  <app-loader />
+}
 <router-outlet />
