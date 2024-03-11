@@ -42,7 +42,9 @@ export class HeroFilterService {
   fetchFilteredHeroes(query: string): Observable<Hero[]> {
     return this.heroService.getHeroes().pipe(
       map((heroes) =>
-        heroes.filter((hero) => hero.name.includes(query.toLowerCase())),
+        heroes.filter((hero) =>
+          hero.name.toLowerCase().includes(query.toLowerCase()),
+        ),
       ),
       catchError((error) =>
         this.errorHandler.handle(error, 'Failed to fetch heroes', []),
