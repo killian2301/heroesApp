@@ -27,7 +27,11 @@ describe('HeroFilterComponent', () => {
 
   it('should filter heroes when there is a valid query', () => {
     const spy = jest.spyOn(heroFilterService, 'filter');
-    component.filter('Spider');
-    expect(spy).toHaveBeenCalledWith('Spider');
+    const query = 'spider';
+    component.filterControl.setValue(query);
+    fixture.detectChanges();
+    component.ngOnInit();
+
+    expect(spy).toHaveBeenCalledWith('spider');
   });
 });
