@@ -24,22 +24,26 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 export class HeroFormComponent implements OnChanges {
   @Input() heroToEdit!: Hero;
   @Output() heroSubmitted: EventEmitter<Hero> = new EventEmitter();
-  heroForm!: FormGroup;
+  heroForm: FormGroup = this.getEmptyForm();
 
   constructor(private fb: FormBuilder) {}
 
   ngOnChanges() {
-    this.heroForm = this.createForm();
+    if (this.heroToEdit) {
+      this.fillFormWith(this.heroToEdit);
+    }
   }
 
   onSubmit() {
     this.heroSubmitted.emit(this.heroForm.value);
   }
-
-  createForm(): FormGroup {
+  fillFormWith(hero: Hero) {
+    this.heroForm.patchValue(hero);
+  }
+  getEmptyForm(): FormGroup {
     return this.fb.group({
-      id: [this.heroToEdit?.id || '', Validators.required],
-      name: [this.heroToEdit?.name || '', Validators.required],
+      id: ['', Validators.required],
+      name: ['', Validators.required],
     });
   }
 }

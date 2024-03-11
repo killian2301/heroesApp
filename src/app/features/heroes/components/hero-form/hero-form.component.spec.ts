@@ -1,18 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { Hero } from '../../../../core/models/hero.model';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { HeroFormComponent } from './hero-form.component';
 
 describe('HeroFormComponent', () => {
+  const hero: Hero = { id: 1, name: 'spiderman' };
   let component: HeroFormComponent;
   let fixture: ComponentFixture<HeroFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeroFormComponent],
+      imports: [HeroFormComponent, ReactiveFormsModule, ButtonComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroFormComponent);
     component = fixture.componentInstance;
+    component.heroToEdit = hero;
     fixture.detectChanges();
   });
 
@@ -21,12 +26,12 @@ describe('HeroFormComponent', () => {
   });
 
   it('should emit a hero when form is submitted', () => {
-    component.heroForm.setValue({ name: 'spiderman' });
+    component.heroForm.get('name')?.setValue('spiderman');
     fixture.detectChanges();
 
     const spy = jest.spyOn(component.heroSubmitted, 'emit');
     component.onSubmit();
-    expect(spy).toHaveBeenCalledWith({ name: 'spiderman' });
+    expect(spy).toHaveBeenCalledWith({ id: '', name: 'spiderman' });
   });
 
   it('name field should be required', () => {

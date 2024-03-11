@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, NgZone, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Hero } from '../../../../core/models/hero.model';
@@ -20,6 +20,7 @@ export class NewHeroComponent implements OnDestroy {
     private heroService: HeroService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private ngZone: NgZone,
   ) {
     this.initializeComponent();
   }
@@ -57,7 +58,7 @@ export class NewHeroComponent implements OnDestroy {
       .saveHero(hero)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        complete: () => this.router.navigate(['/heroes']),
+        complete: () => this.goBackToHeroesList(),
         error: (error) => console.error('Failed to save hero', error),
       });
   }
@@ -66,8 +67,12 @@ export class NewHeroComponent implements OnDestroy {
       .updateHero(hero)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        complete: () => this.router.navigate(['/heroes']),
+        complete: () => this.goBackToHeroesList(),
         error: (error) => console.error('Failed to save hero', error),
       });
+  }
+
+  private goBackToHeroesList() {
+    this.ngZone.run(() => this.router.navigate(['/heroes']));
   }
 }

@@ -15,10 +15,7 @@ describe('NewHeroComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NewHeroComponent, HttpClientTestingModule, RouterTestingModule],
-      providers: [
-        { provide: Router, useValue: { navigate: jest.fn() } },
-        { provide: HeroService, useValue: { saveHero: jest.fn() } },
-      ],
+      providers: [{ provide: HeroService, useValue: { saveHero: jest.fn() } }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NewHeroComponent);

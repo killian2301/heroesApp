@@ -1,10 +1,15 @@
-<div>
-  <h1>{{ hero?.name | uppercase }}</h1>
-  <p>{{ hero?.id }}</p>
-</div>
+@if (hero) {
+  <div>
+    <h1>{{ hero.name | uppercase }}</h1>
+    <p>{{ hero.id }}</p>
+  </div>
 
-<app-button label="Delete hero" (click)="onDeleteHero()"></app-button>
-<app-button
-  label="Edit hero"
-  [routerLink]="['/heroes', hero?.id, 'edit']"
-></app-button>
+  <app-delete-hero
+    [hero]="hero"
+    (heroDeleted)="onHeroDeleted($event)"
+  ></app-delete-hero>
+  <app-button
+    label="Edit hero"
+    [routerLink]="['/heroes', hero.id, 'edit']"
+  ></app-button>
+}
