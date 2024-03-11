@@ -42,7 +42,7 @@ export class HeroFormComponent implements OnChanges {
   }
   getEmptyForm(): FormGroup {
     return this.fb.group({
-      id: ['', Validators.required],
+      id: [''],
       name: ['', Validators.required],
     });
   }

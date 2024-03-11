@@ -13,6 +13,6 @@
   <app-button
     label="Save"
     (click)="onSubmit()"
-    [disabled]="heroForm.invalid"
+    [disabled]="heroForm.invalid || heroForm.pristine"
   ></app-button>
 }
