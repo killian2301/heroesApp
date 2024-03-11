@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HeroFilterService } from '../../services/hero-filter.service';
 import { HeroFilterComponent } from './hero-filter.component';
 
@@ -12,7 +13,11 @@ describe('HeroFilterComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [],
       providers: [HeroFilterService],
-      imports: [HeroFilterComponent, HttpClientTestingModule],
+      imports: [
+        HeroFilterComponent,
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroFilterComponent);
