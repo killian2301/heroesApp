@@ -3,7 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of, throwError } from 'rxjs';
 import { Hero } from '../../../../core/models/hero.model';
+import { HeroService } from '../../services/hero.service';
 import { HeroDetailComponent } from './hero-detail.component';
 
 describe('HeroDetailComponent', () => {
@@ -12,6 +14,7 @@ describe('HeroDetailComponent', () => {
   let component: HeroDetailComponent;
   let fixture: ComponentFixture<HeroDetailComponent>;
   let router: Router;
+  let heroService: HeroService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -26,12 +29,20 @@ describe('HeroDetailComponent', () => {
             snapshot: { paramMap: { get: jest.fn().mockReturnValue('1') } },
           },
         },
+        {
+          provide: HeroService,
+          useValue: {
+            getHero: jest.fn().mockReturnValue(of(hero)),
+          },
+        },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroDetailComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
+    heroService = TestBed.inject(HeroService);
+
     fixture.detectChanges();
   });
 
@@ -50,5 +61,27 @@ describe('HeroDetailComponent', () => {
     const spy = jest.spyOn(router, 'navigate');
     component.onHeroDeleted(true);
     expect(spy).toHaveBeenCalledWith(['/heroes']);
+  });
+
+  it('should fetch and display hero data', () => {
+    component.ngOnInit();
+    expect(component.hero).toEqual(hero);
+  });
+
+  it('should log an error message if fetching hero fails', () => {
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    jest
+      .spyOn(heroService, 'getHero')
+      .mockReturnValue(throwError(() => new Error('Error fetching hero')));
+
+    component.ngOnInit();
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      'Error fetching hero:',
+      expect.any(Error),
+    );
   });
 });

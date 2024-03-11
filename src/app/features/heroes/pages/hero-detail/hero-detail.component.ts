@@ -28,16 +28,6 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     this.getHero();
   }
 
-  getHero(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.heroService
-      .getHero(id)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (hero) => (this.hero = hero),
-        error: (err) => console.error('Error fetching hero:', err),
-      });
-  }
   onHeroDeleted(success: boolean): void {
     if (success) {
       this.ngZone.run(() => this.router.navigate(['/heroes']));
@@ -49,5 +39,16 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
+  }
+
+  private getHero(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.heroService
+      .getHero(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (hero) => (this.hero = hero),
+        error: (err) => console.error('Error fetching hero:', err),
+      });
   }
 }
