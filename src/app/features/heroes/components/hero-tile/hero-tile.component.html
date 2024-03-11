@@ -1,1 +1,22 @@
-<li>{{ hero?.name | titlecase}}</li>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ hero.name | titlecase }}</mat-card-title>
+    <mat-card-subtitle>{{ hero.biography?.publisher }}</mat-card-subtitle>
+  </mat-card-header>
+  <img
+    class="hero__image"
+    mat-card-image
+    [src]="hero.images?.md"
+    [alt]="hero.name"
+  />
+  <mat-card-content>
+    <mat-chip color="primary">{{
+      hero.appearance?.race || "Unknown"
+    }}</mat-chip>
+    <p>{{ hero.work.occupation | noDescription }}</p>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button [routerLink]="['/heroes', hero.id]">Details</button>
+    <button mat-button [routerLink]="['/heroes', hero.id, 'edit']">Edit</button>
+  </mat-card-actions>
+</mat-card>

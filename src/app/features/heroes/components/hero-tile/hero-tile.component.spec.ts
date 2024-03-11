@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { RouterTestingModule } from '@angular/router/testing';
 import { Hero } from '../../../../core/models/hero.model';
 import { HeroTileComponent } from './hero-tile.component';
 
@@ -10,7 +11,7 @@ describe('HeroTileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeroTileComponent],
+      imports: [HeroTileComponent, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroTileComponent);
@@ -26,6 +27,8 @@ describe('HeroTileComponent', () => {
     component.hero = heroes[0];
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('li').textContent).toContain('Spiderman');
+    expect(compiled.querySelector('.card-title').textContent).toContain(
+      'Spiderman',
+    );
   });
 });
