@@ -14,10 +14,8 @@ import { LoaderService } from './core/services/loader.service';
 })
 export class AppComponent {
   title = 'Hero App';
-  loading = false;
-  isLoading$ = this.loaderService.isLoading$;
   isLoading: boolean = false;
-  destroy$ = new Subject();
+  private destroy$ = new Subject();
   constructor(
     private loaderService: LoaderService,
     private cdRef: ChangeDetectorRef,
