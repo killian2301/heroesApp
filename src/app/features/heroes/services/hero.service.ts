@@ -11,7 +11,7 @@ import { HttpService } from '../../../core/services/http.service';
 export class HeroService {
   constructor(
     private httpService: HttpService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
   ) {}
 
   getHeroes(): Observable<Hero[]> {
@@ -19,8 +19,8 @@ export class HeroService {
       .get<Hero[]>(`${environment.apiUrl}/heroes`)
       .pipe(
         catchError((error) =>
-          this.errorHandler.handle(error, 'Failed to fetch heroes', [])
-        )
+          this.errorHandler.handle(error, 'Failed to fetch heroes', []),
+        ),
       );
   }
   getHero(id: number): Observable<Hero> {
@@ -28,8 +28,8 @@ export class HeroService {
       .get<Hero>(`${environment.apiUrl}/heroes/${id}`)
       .pipe(
         catchError((error) =>
-          this.errorHandler.handle(error, 'Failed to fetch hero')
-        )
+          this.errorHandler.handle(error, 'Failed to fetch hero'),
+        ),
       );
   }
 
@@ -40,8 +40,8 @@ export class HeroService {
       .post<Hero>(`${environment.apiUrl}/heroes`, newHero)
       .pipe(
         catchError((error) =>
-          this.errorHandler.handle(error, 'Failed to fetch hero')
-        )
+          this.errorHandler.handle(error, 'Failed to fetch hero'),
+        ),
       );
   }
   deleteHero(heroId: number): Observable<Hero> {
@@ -49,8 +49,18 @@ export class HeroService {
       .delete<Hero>(`${environment.apiUrl}/heroes/${heroId}`)
       .pipe(
         catchError((error) =>
-          this.errorHandler.handle(error, 'Failed to fetch hero')
-        )
+          this.errorHandler.handle(error, 'Failed to fetch hero'),
+        ),
+      );
+  }
+
+  updateHero(hero: Hero) {
+    return this.httpService
+      .put<Hero>(`${environment.apiUrl}/heroes/${hero.id}`, hero)
+      .pipe(
+        catchError((error) =>
+          this.errorHandler.handle(error, 'Failed to fetch hero'),
+        ),
       );
   }
 }

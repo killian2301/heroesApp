@@ -1,7 +1,7 @@
 import { UpperCasePipe } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { Hero } from '../../../../core/models/hero.model';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
@@ -11,7 +11,7 @@ import { HeroService } from '../../services/hero.service';
 @Component({
   selector: 'app-hero-detail',
   standalone: true,
-  imports: [UpperCasePipe, ButtonComponent],
+  imports: [UpperCasePipe, ButtonComponent, RouterModule],
   templateUrl: './hero-detail.component.html',
   styleUrl: './hero-detail.component.scss',
 })
@@ -22,7 +22,7 @@ export class HeroDetailComponent implements OnDestroy {
     private heroService: HeroService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
     this.route.params
       .pipe(switchMap((params) => this.heroService.getHero(params['id'])))

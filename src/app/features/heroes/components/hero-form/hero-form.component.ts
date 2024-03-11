@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -15,22 +21,25 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
   templateUrl: './hero-form.component.html',
   styleUrl: './hero-form.component.scss',
 })
-export class HeroFormComponent implements OnInit {
-  heroForm!: FormGroup;
+export class HeroFormComponent implements OnChanges {
+  @Input() heroToEdit!: Hero;
   @Output() heroSubmitted: EventEmitter<Hero> = new EventEmitter();
+  heroForm!: FormGroup;
+
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit() {
-    this.createForm();
+  ngOnChanges() {
+    this.heroForm = this.createForm();
   }
 
   onSubmit() {
     this.heroSubmitted.emit(this.heroForm.value);
   }
 
-  createForm() {
-    this.heroForm = this.fb.group({
-      name: ['', Validators.required],
+  createForm(): FormGroup {
+    return this.fb.group({
+      id: [this.heroToEdit?.id || '', Validators.required],
+      name: [this.heroToEdit?.name || '', Validators.required],
     });
   }
 }

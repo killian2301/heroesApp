@@ -4,3 +4,7 @@
 </div>
 
 <app-button label="Delete hero" (click)="onDeleteHero()"></app-button>
+<app-button
+  label="Edit hero"
+  [routerLink]="['/heroes', hero?.id, 'edit']"
+></app-button>
