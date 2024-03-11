@@ -40,4 +40,6 @@ describe('HeroFilterService', () => {
     );
     expect(filteredHeroes).toEqual([expectedHero]);
   });
+
+  it('should filter heroes', async () => {});
 });

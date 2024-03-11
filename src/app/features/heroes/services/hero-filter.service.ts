@@ -17,20 +17,20 @@ import { HeroService } from './hero.service';
 export class HeroFilterService {
   querySubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   filteredHeroesSubject: BehaviorSubject<Hero[]> = new BehaviorSubject<Hero[]>(
-    []
+    [],
   );
   constructor(
     private heroService: HeroService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
   ) {
-    this.setUpSubscription();
+    this.setupSubscription();
   }
 
-  private setUpSubscription(): void {
+  private setupSubscription(): void {
     this.querySubject
       .pipe(
         debounceTime(500),
-        switchMap((filterQuery) => this.fetchFilteredHeroes(filterQuery))
+        switchMap((filterQuery) => this.fetchFilteredHeroes(filterQuery)),
       )
       .subscribe((heroes) => this.filteredHeroesSubject.next(heroes));
   }
@@ -42,11 +42,11 @@ export class HeroFilterService {
   fetchFilteredHeroes(query: string): Observable<Hero[]> {
     return this.heroService.getHeroes().pipe(
       map((heroes) =>
-        heroes.filter((hero) => hero.name.includes(query.toLowerCase()))
+        heroes.filter((hero) => hero.name.includes(query.toLowerCase())),
       ),
       catchError((error) =>
-        this.errorHandler.handle(error, 'Failed to fetch heroes', [])
-      )
+        this.errorHandler.handle(error, 'Failed to fetch heroes', []),
+      ),
     );
   }
 
