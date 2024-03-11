@@ -14,7 +14,7 @@ import { DeleteHeroConfirmationDialogComponent } from '../delete-hero-confirmati
   styleUrl: './delete-hero.component.scss',
 })
 export class DeleteHeroComponent {
-  @Input() hero?: Hero;
+  @Input() hero!: Hero;
   @Output() heroDeleted = new EventEmitter<boolean>();
   destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -37,7 +37,6 @@ export class DeleteHeroComponent {
     this.deleteHero();
   }
   private deleteHero() {
-    if (!this.hero) return;
     this.heroService
       .deleteHero(this.hero.id)
       .pipe(takeUntil(this.destroy$))
@@ -47,7 +46,6 @@ export class DeleteHeroComponent {
         },
         error: (err) => {
           this.heroDeleted.emit(false);
-          console.error('Error deleting hero:', err);
         },
       });
   }

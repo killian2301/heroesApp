@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { HeroService } from '../../services/hero.service';
 import { DeleteHeroConfirmationDialogComponent } from '../delete-hero-confirmation-dialog/delete-hero-confirmation-dialog.component';
 import { DeleteHeroComponent } from './delete-hero.component';
@@ -79,5 +79,21 @@ describe('DeleteHeroComponent', () => {
     component.onDeleteHero();
 
     expect(emitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should not call heroDeleted if there is an error deleting the hero', () => {
+    const spy = jest.spyOn(component.heroDeleted, 'emit');
+
+    jest.spyOn(dialog, 'open').mockReturnValue({
+      afterClosed: () => of(true),
+    } as any);
+
+    jest
+      .spyOn(heroService, 'deleteHero')
+      .mockReturnValue(throwError(() => new Error()));
+
+    component.onDeleteHero();
+
+    expect(spy).toHaveBeenCalledWith(false);
   });
 });
