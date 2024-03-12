@@ -1,18 +1,47 @@
 @if (heroForm) {
   <form [formGroup]="heroForm">
     <div class="form-group">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="name"
-        formControlName="name"
-      />
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field formGroupName="biography">
+        <mat-label>Publisher</mat-label>
+        <input matInput formControlName="publisher" />
+      </mat-form-field>
+
+      <mat-form-field formGroupName="work">
+        <mat-label>Occupation</mat-label>
+        <textarea
+          matNativeControl
+          formControlName="occupation"
+          rows="5"
+        ></textarea>
+      </mat-form-field>
+
+      <ng-container formGroupName="appearance">
+        <mat-form-field>
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="Male">Male</mat-option>
+            <mat-option value="Female">Female</mat-option>
+            <mat-option value="Other">Other</mat-option>
+            <mat-option value="Unknown">Unknown</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Race</mat-label>
+          <input matInput formControlName="race" />
+        </mat-form-field>
+      </ng-container>
     </div>
   </form>
   <app-button
     label="Save"
     (click)="onSubmit()"
+    color="primary"
     [disabled]="heroForm.invalid || heroForm.pristine"
   ></app-button>
 }

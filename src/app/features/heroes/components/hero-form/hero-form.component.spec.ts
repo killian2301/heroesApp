@@ -6,7 +6,12 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 import { HeroFormComponent } from './hero-form.component';
 
 describe('HeroFormComponent', () => {
-  const hero: Hero = { id: 1, name: 'spiderman' };
+  const hero: Hero = {
+    id: 1,
+    name: 'spiderman',
+    work: { occupation: '' },
+    appearance: { gender: '', race: '' },
+  };
   let component: HeroFormComponent;
   let fixture: ComponentFixture<HeroFormComponent>;
 
