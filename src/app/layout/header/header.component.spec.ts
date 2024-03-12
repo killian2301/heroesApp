@@ -24,6 +24,6 @@ describe('HeaderComponent', () => {
     component.title = 'My Title';
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h2').textContent).toContain('My Title');
+    expect(compiled.querySelector('span').textContent).toContain('My Title');
   });
 });
