@@ -1,11 +1,9 @@
 @if (heroes.length) {
-  <ul>
-    <app-hero-tile
-      *ngFor="let hero of heroes"
-      [hero]="hero"
-      [routerLink]="['/heroes', hero.id]"
-    />
-  </ul>
-} @else {
-  <p>No heroes found.</p>
+  <div class="heroes__container">
+    @for (hero of heroes; track hero.id) {
+      <app-hero-tile [hero]="hero" />
+    }
+  </div>
+} @else if (heroes.length === 0 && !isLoading) {
+  <app-no-heroes-found />
 }
