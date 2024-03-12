@@ -1,3 +1,15 @@
 .edit-button {
   margin-right: 16px;
 }
+.hero-detail {
+  display: flex;
+  flex-direction: row;
+  margin: 16px;
+  img {
+    margin-right: 16px;
+    max-height: 400px;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+}

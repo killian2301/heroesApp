@@ -1,5 +1,5 @@
 @if (hero) {
-  <app-header title="{{ hero.name | uppercase }}">
+  <app-header title="{{ hero.name | uppercase }}" [canGoBack]="true">
     <app-button
       class="edit-button"
       label="Edit hero"
@@ -8,4 +8,23 @@
     />
     <app-delete-hero [hero]="hero" (heroDeleted)="onHeroDeleted($event)" />
   </app-header>
+
+  <div class="hero-detail">
+    <img
+      [src]="hero.images?.lg || 'assets/images/hero-placeholder.jpg'"
+      [alt]="hero.name"
+    />
+    <div>
+      <h2>Name:</h2>
+      <p>{{ hero.name }}</p>
+      <h2>Publisher:</h2>
+      <p>{{ hero.biography?.publisher }}</p>
+      <h2>Occupation:</h2>
+      <p>{{ hero.work.occupation }}</p>
+      <h2>Gender:</h2>
+      <p>{{ hero.appearance?.gender }}</p>
+      <h2>Race:</h2>
+      <p>{{ hero.appearance?.race }}</p>
+    </div>
+  </div>
 }
