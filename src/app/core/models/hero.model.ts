@@ -7,7 +7,7 @@ export class Hero {
   work: {
     occupation: string;
   };
-  images?: {
+  images: {
     xs: string;
     sm: string;
     md: string;
@@ -17,14 +17,16 @@ export class Hero {
     gender: string;
     race: string;
   };
-  private constructor(name: string, occupation: string = '-') {
-    this.id = Math.floor(Math.random() * 1000);
-    this.name = name;
-    this.work = { occupation };
+  private constructor(heroForm: Hero) {
+    this.id = heroForm.id;
+    this.name = heroForm.name;
+    this.work = heroForm.work;
+    this.images = heroForm.images;
+    this.appearance = heroForm.appearance;
+    this.biography = heroForm.biography;
   }
 
-  static create(heroForm: Omit<Hero, 'id'>): Hero {
-    const { name } = heroForm;
-    return new Hero(name.toLowerCase());
+  static create(heroForm: Omit<Hero, 'id'>, id: number): Hero {
+    return new Hero({ ...heroForm, id });
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, switchMap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Hero } from '../../../core/models/hero.model';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
@@ -33,14 +33,19 @@ export class HeroService {
       );
   }
   saveHero(hero: Omit<Hero, 'id'>): Observable<Hero> {
-    const newHero = Hero.create(hero);
-    return this.httpService
-      .post<Hero>(`${environment.apiUrl}/heroes`, newHero)
-      .pipe(
-        catchError((error) =>
-          this.errorHandler.handle(error, 'Failed to save hero'),
-        ),
-      );
+    return this.getHeroes().pipe(
+      switchMap((heroes) => {
+        const nextId = heroes[heroes.length - 1].id + 1;
+        const newHero = Hero.create(hero, nextId);
+        return this.httpService
+          .post<Hero>(`${environment.apiUrl}/heroes`, newHero)
+          .pipe(
+            catchError((error) =>
+              this.errorHandler.handle(error, 'Failed to save hero'),
+            ),
+          );
+      }),
+    );
   }
   deleteHero(heroId: number): Observable<Hero> {
     return this.httpService
