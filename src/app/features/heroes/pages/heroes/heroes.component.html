@@ -1,4 +1,11 @@
 <section class="container">
-  <app-header title="Heroes" />
+  <app-header title="Heroes">
+    <app-hero-filter />
+    <app-button
+      class="add-hero__button"
+      label="Add Hero"
+      routerLink="/heroes/new"
+    />
+  </app-header>
   <app-heroes-list />
 </section>
