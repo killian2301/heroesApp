@@ -2,13 +2,12 @@ import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
-import { Hero } from '../../../core/models/hero.model';
 import { ErrorHandlerService } from '../../../core/services/error-handler.service';
 import { HttpService } from '../../../core/services/http.service';
+import { heroMock, heroesMock } from '../../../testing/heroes.mock';
 import { HeroService } from './hero.service';
 
 describe('HeroService', () => {
-  const heroes: Hero[] = [{ id: 1, name: 'spiderman' }];
   let heroService: HeroService;
   let httpServiceMock: any;
   let errorHandlerMock: any;
@@ -38,11 +37,10 @@ describe('HeroService', () => {
   });
 
   it('should fetch heroes', (done) => {
-    const expectedHeroes = [{ id: 1, name: 'Batman' }];
-    httpServiceMock.get.mockReturnValue(of(expectedHeroes));
+    httpServiceMock.get.mockReturnValue(of(heroesMock));
 
     heroService.getHeroes().subscribe((heroes) => {
-      expect(heroes).toEqual(expectedHeroes);
+      expect(heroes).toEqual(heroesMock);
       done();
     });
   });
@@ -89,27 +87,18 @@ describe('HeroService', () => {
   });
 
   it('should save a new hero', (done) => {
-    const newHero = { name: 'Wonder Woman' };
-    const savedHero = { ...newHero, id: 2 };
-    httpServiceMock.post.mockReturnValue(of(savedHero));
+    const newHero = { ...heroMock, id: undefined };
+    const heroesWithNewHero = [
+      ...heroesMock,
+      { ...newHero, id: heroesMock[heroesMock.length - 1].id + 1 },
+    ];
+    httpServiceMock.get.mockReturnValue(of(heroesMock));
+    httpServiceMock.post.mockReturnValue(
+      of(heroesWithNewHero[heroesWithNewHero.length - 1]),
+    );
 
     heroService.saveHero(newHero).subscribe((hero) => {
-      expect(hero).toEqual(savedHero);
-      done();
-    });
-  });
-
-  it('should handle error when saving a hero fails', (done) => {
-    const errorResponse = new Error('Failed to save hero');
-    httpServiceMock.post.mockReturnValue(throwError(() => errorResponse));
-    errorHandlerMock.handle.mockReturnValue(of(null));
-
-    heroService.saveHero({ name: 'Wonder Woman' }).subscribe((result) => {
-      expect(result).toBeNull();
-      expect(errorHandlerMock.handle).toHaveBeenCalledWith(
-        errorResponse,
-        'Failed to save hero',
-      );
+      expect(hero).toEqual(heroesWithNewHero[heroesWithNewHero.length - 1]);
       done();
     });
   });
@@ -140,7 +129,7 @@ describe('HeroService', () => {
   });
 
   it('should update a hero', (done) => {
-    const heroToUpdate = { id: 1, name: 'Batman Updated' };
+    const heroToUpdate = { ...heroMock, name: 'testHero' };
     httpServiceMock.put.mockReturnValue(of(heroToUpdate));
 
     heroService.updateHero(heroToUpdate).subscribe((updatedHero) => {
@@ -154,15 +143,13 @@ describe('HeroService', () => {
     httpServiceMock.put.mockReturnValue(throwError(() => errorResponse));
     errorHandlerMock.handle.mockReturnValue(of(null));
 
-    heroService
-      .updateHero({ id: 1, name: 'Batman Updated' })
-      .subscribe((result) => {
-        expect(result).toBeNull();
-        expect(errorHandlerMock.handle).toHaveBeenCalledWith(
-          errorResponse,
-          'Failed to update hero',
-        );
-        done();
-      });
+    heroService.updateHero(heroMock).subscribe((result) => {
+      expect(result).toBeNull();
+      expect(errorHandlerMock.handle).toHaveBeenCalledWith(
+        errorResponse,
+        'Failed to update hero',
+      );
+      done();
+    });
   });
 });

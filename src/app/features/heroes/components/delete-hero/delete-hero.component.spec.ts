@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { of, throwError } from 'rxjs';
+import { heroMock } from '../../../../testing/heroes.mock';
 import { HeroService } from '../../services/hero.service';
 import { DeleteHeroConfirmationDialogComponent } from '../delete-hero-confirmation-dialog/delete-hero-confirmation-dialog.component';
 import { DeleteHeroComponent } from './delete-hero.component';
@@ -35,7 +36,7 @@ describe('DeleteHeroComponent', () => {
     component = fixture.componentInstance;
     dialog = TestBed.inject(MatDialog);
     heroService = TestBed.inject(HeroService);
-    component.hero = { id: 1, name: 'Spiderman' };
+    component.hero = heroMock;
     fixture.detectChanges();
   });
 

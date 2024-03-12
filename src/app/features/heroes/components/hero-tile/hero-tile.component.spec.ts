@@ -1,13 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { Hero } from '../../../../core/models/hero.model';
+import { heroMock } from '../../../../testing/heroes.mock';
 import { HeroTileComponent } from './hero-tile.component';
 
 describe('HeroTileComponent', () => {
   let component: HeroTileComponent;
   let fixture: ComponentFixture<HeroTileComponent>;
-  const heroes: Hero[] = [{ id: 1, name: 'spiderman' }];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -16,6 +15,7 @@ describe('HeroTileComponent', () => {
 
     fixture = TestBed.createComponent(HeroTileComponent);
     component = fixture.componentInstance;
+    component.hero = heroMock;
     fixture.detectChanges();
   });
 
@@ -24,11 +24,9 @@ describe('HeroTileComponent', () => {
   });
 
   it('should show capitalize hero name', () => {
-    component.hero = heroes[0];
-    fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.card-title').textContent).toContain(
-      'Spiderman',
+    expect(compiled.querySelector('.mat-mdc-card-title').textContent).toContain(
+      'Batman',
     );
   });
 });

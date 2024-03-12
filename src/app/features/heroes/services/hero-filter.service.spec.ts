@@ -2,13 +2,11 @@ import { TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BehaviorSubject, firstValueFrom, of } from 'rxjs';
-import { Hero } from '../../../core/models/hero.model';
+import { heroMock, heroesMock } from '../../../testing/heroes.mock';
 import { HeroFilterService } from './hero-filter.service';
 import { HeroService } from './hero.service';
 
 describe('HeroFilterService', () => {
-  const heroes: Hero[] = [{ id: 1, name: 'spiderman' }];
-
   let service: HeroFilterService;
   let heroService: HeroService;
   beforeEach(() => {
@@ -31,15 +29,13 @@ describe('HeroFilterService', () => {
   });
 
   it('should fetch heroes to the API', async () => {
-    const expectedHero = heroes[0];
-    heroService.getHeroes = jest.fn(() => of(heroes));
-    const query = 'spider';
+    const expectedHero = heroMock;
+    heroService.getHeroes = jest.fn(() => of(heroesMock));
+    const query = 'batm';
 
     const filteredHeroes = await firstValueFrom(
       service.fetchFilteredHeroes(query),
     );
     expect(filteredHeroes).toEqual([expectedHero]);
   });
-
-  it('should filter heroes', async () => {});
 });

@@ -8,14 +8,12 @@ import {
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { Hero } from '../../../../core/models/hero.model';
+import { heroMock } from '../../../../testing/heroes.mock';
 import { DeleteHeroConfirmationDialogComponent } from './delete-hero-confirmation-dialog.component';
 
 describe('DeleteHeroConfirmationDialogComponent', () => {
   let component: DeleteHeroConfirmationDialogComponent;
   let fixture: ComponentFixture<DeleteHeroConfirmationDialogComponent>;
-  const hero: Hero = { id: 1, name: 'spiderman' };
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -31,7 +29,7 @@ describe('DeleteHeroConfirmationDialogComponent', () => {
 
     fixture = TestBed.createComponent(DeleteHeroConfirmationDialogComponent);
     component = fixture.componentInstance;
-    component.hero = hero;
+    component.hero = heroMock;
     fixture.detectChanges();
   });
 

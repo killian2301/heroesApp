@@ -1,7 +1,7 @@
 export class Hero {
   id: number;
   name: string;
-  biography?: {
+  biography: {
     publisher: string;
   };
   work: {
@@ -13,7 +13,7 @@ export class Hero {
     md: string;
     lg: string;
   };
-  appearance?: {
+  appearance: {
     gender: string;
     race: string;
   };

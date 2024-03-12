@@ -12,7 +12,6 @@ import { LoaderService } from './core/services/loader.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'Hero App';
   isLoading: boolean = false;
   private destroy$ = new Subject();
   constructor(

@@ -14,7 +14,7 @@ export class NotificationService {
   error(message: string) {
     const config: MatSnackBarConfig = {
       verticalPosition: 'top',
-      horizontalPosition: 'right',
+      horizontalPosition: 'center',
       duration: 3000,
     };
     return this.openSnackBar(message, config);

@@ -36,16 +36,17 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
   }
 
   onHeroDeleted(success: boolean): void {
-    if (success) {
-      this.ngZone.run(() => this.router.navigate(['/heroes']));
-    } else {
-      alert('There was an error deleting the hero.');
-    }
+    if (!success) return;
+    this.goToHeroesList();
   }
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
+  }
+
+  private goToHeroesList(): void {
+    this.ngZone.run(() => this.router.navigate(['/heroes']));
   }
 
   private getHero(): void {

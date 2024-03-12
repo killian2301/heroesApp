@@ -1,28 +1,28 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { Hero } from '../../../../core/models/hero.model';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { heroMock } from '../../../../testing/heroes.mock';
 import { HeroFormComponent } from './hero-form.component';
 
 describe('HeroFormComponent', () => {
-  const hero: Hero = {
-    id: 1,
-    name: 'spiderman',
-    work: { occupation: '' },
-    appearance: { gender: '', race: '' },
-  };
   let component: HeroFormComponent;
   let fixture: ComponentFixture<HeroFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeroFormComponent, ReactiveFormsModule, ButtonComponent],
+      imports: [
+        HeroFormComponent,
+        ReactiveFormsModule,
+        ButtonComponent,
+        NoopAnimationsModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeroFormComponent);
     component = fixture.componentInstance;
-    component.heroToEdit = hero;
+    component.heroToEdit = heroMock;
     fixture.detectChanges();
   });
 
@@ -30,13 +30,17 @@ describe('HeroFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should emit a hero when form is submitted', () => {
-    component.heroForm.get('name')?.setValue('spiderman');
+  it('should emit a hero when form is submitted correctly', () => {
+    component.heroForm.patchValue(heroMock);
+    component.heroForm.get('name')?.setValue('testHero');
+
     fixture.detectChanges();
 
     const spy = jest.spyOn(component.heroSubmitted, 'emit');
     component.onSubmit();
-    expect(spy).toHaveBeenCalledWith({ id: '', name: 'spiderman' });
+    const expectedHero = { ...heroMock, name: 'testHero' };
+
+    expect(spy).toHaveBeenCalledWith(expectedHero);
   });
 
   it('name field should be required', () => {
@@ -52,9 +56,9 @@ describe('HeroFormComponent', () => {
   });
 
   it('should fill form with hero data when hero is passed', () => {
-    component.heroToEdit = hero;
+    component.heroToEdit = heroMock;
     component.ngOnChanges();
     fixture.detectChanges();
-    expect(component.heroForm.get('name')?.value).toBe('spiderman');
+    expect(component.heroForm.get('name')?.value).toBe('Batman');
   });
 });

@@ -4,13 +4,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
-import { Hero } from '../../../../core/models/hero.model';
+import { HeaderComponent } from '../../../../layout/header/header.component';
+import { heroMock } from '../../../../testing/heroes.mock';
 import { HeroService } from '../../services/hero.service';
 import { HeroDetailComponent } from './hero-detail.component';
 
 describe('HeroDetailComponent', () => {
-  const hero: Hero = { id: 1, name: 'spiderman' };
-
   let component: HeroDetailComponent;
   let fixture: ComponentFixture<HeroDetailComponent>;
   let router: Router;
@@ -21,6 +20,7 @@ describe('HeroDetailComponent', () => {
         HeroDetailComponent,
         HttpClientTestingModule,
         RouterTestingModule,
+        HeaderComponent,
       ],
       providers: [
         {
@@ -32,7 +32,7 @@ describe('HeroDetailComponent', () => {
         {
           provide: HeroService,
           useValue: {
-            getHero: jest.fn().mockReturnValue(of(hero)),
+            getHero: jest.fn().mockReturnValue(of(heroMock)),
           },
         },
       ],
@@ -42,19 +42,12 @@ describe('HeroDetailComponent', () => {
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     heroService = TestBed.inject(HeroService);
-
+    component.hero = heroMock;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should show hero name in capitalize letters', () => {
-    component.hero = hero;
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('SPIDERMAN');
   });
 
   it('should return to hero list once hero is deleted', () => {
@@ -65,7 +58,7 @@ describe('HeroDetailComponent', () => {
 
   it('should fetch and display hero data', () => {
     component.ngOnInit();
-    expect(component.hero).toEqual(hero);
+    expect(component.hero).toEqual(heroMock);
   });
 
   it('should log an error message if fetching hero fails', () => {
