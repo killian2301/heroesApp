@@ -10,5 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ButtonComponent {
   @Input() label: string = '';
+  @Input() color?: 'warn' | 'accent' | 'primary';
   @Input() disabled: boolean = false;
 }
