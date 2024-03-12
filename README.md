@@ -1,27 +1,37 @@
 # HeroW2m
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
+Este proyecto fue realizado por Killian Jiménez Lecroc y generado con [Angular CLI](https://github.com/angular/angular-cli) versión 17.2.2. Utiliza Angular como framework para el desarrollo de una aplicación SPA (Single Page Application) que permite gestionar un mantenimiento de superhéroes.
 
-## Development server
+## Requisitos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Para ejecutar este proyecto necesitas tener instalado Node.js y npm. Asegúrate de tener la última versión LTS de Angular CLI instalada globalmente en tu sistema.
 
-## Code scaffolding
+## Instalación
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Primero, clona el repositorio y navega al directorio del proyecto. Luego, instala las dependencias necesarias con npm:
 
-## Build
+```bash
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Uso de JSON Server como backend
 
-## Running unit tests
+Este proyecto utiliza [JSON Server](https://github.com/typicode/json-server) para simular una API REST. Para iniciar el servidor, ejecuta el siguiente comando en tu terminal:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm run backend
+```
 
-## Running end-to-end tests
+La base de datos de pruebas ha sido descargada de internet ([SuperHeroApi](https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json)).
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Servidor de desarrollo
 
-## Further help
+Ejecuta `ng start` para iniciar un servidor de desarrollo. Navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si cambias alguno de los archivos fuente.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Ejecución de pruebas unitarias
+
+Este proyecto utiliza Jest para las pruebas unitarias. Ejecuta `npm run test` para ejecutar las pruebas unitarias.
+
+Para observar cambios en los archivos de prueba y re-ejecutar las pruebas automáticamente, usa `npm run test:watch`.
+
+Para generar y ver un informe de cobertura de código, ejecuta `npm run test:coverage`.
