@@ -1,5 +1,15 @@
-<h1>{{ mode === "new" ? "New Hero" : "Edit Hero" }}</h1>
-<app-hero-form
-  (heroSubmitted)="onSubmit($event)"
-  [heroToEdit]="hero"
-></app-hero-form>
+<app-header
+  [title]="mode === 'new' ? 'New Hero' : 'Edit Hero'"
+  [canGoBack]="true"
+>
+  @if (mode === "edit") {
+    <app-delete-hero [hero]="hero" (heroDeleted)="onHeroDeleted($event)" />
+  }
+</app-header>
+
+<section class="container">
+  <app-hero-form
+    (heroSubmitted)="onSubmit($event)"
+    [heroToEdit]="hero"
+  ></app-hero-form>
+</section>
