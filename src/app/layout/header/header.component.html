@@ -1,4 +1,9 @@
 <mat-toolbar color="primary">
+  @if (canGoBack) {
+    <button mat-icon-button routerLink="/heroes">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  }
   <span>{{ title }}</span>
   <span class="spacer"></span>
   <ng-content></ng-content>
