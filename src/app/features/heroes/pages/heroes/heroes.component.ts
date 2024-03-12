@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { HeaderComponent } from '../../../../layout/header/header.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { HeroFilterComponent } from '../../components/hero-filter/hero-filter.component';
 import { HeroesListComponent } from '../../components/heroes-list/heroes-list.component';
@@ -18,6 +19,7 @@ import { HeroFilterService } from '../../services/hero-filter.service';
     HeroesListComponent,
     ButtonComponent,
     RouterModule,
+    HeaderComponent,
   ],
   providers: [HeroFilterService],
   templateUrl: './heroes.component.html',

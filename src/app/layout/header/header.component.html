@@ -1,1 +1,10 @@
-<h2>{{ title }}</h2>
+<mat-toolbar color="primary">
+  <span>{{ title }}</span>
+  <span class="spacer"></span>
+  <app-hero-filter />
+  <app-button
+    class="add-hero__button"
+    label="Add Hero"
+    routerLink="/heroes/new"
+  />
+</mat-toolbar>
