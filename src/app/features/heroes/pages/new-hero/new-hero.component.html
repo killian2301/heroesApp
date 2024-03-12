@@ -8,6 +8,19 @@
 </app-header>
 
 <section class="container">
+  <div>
+    @if (mode === "new") {
+      <img
+        class="hero-image"
+        src="assets/images/hero-placeholder.jpg"
+        alt="Hero Image"
+      />
+      <p>(Sorry, you cannot change the hero's picture for now...)</p>
+    } @else if (hero) {
+      <img class="hero-image" [src]="hero.images.lg" alt="Hero Image" />
+    }
+  </div>
+
   <app-hero-form
     (heroSubmitted)="onSubmit($event)"
     [heroToEdit]="hero"
