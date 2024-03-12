@@ -3,6 +3,7 @@
     <app-button
       class="edit-button"
       label="Edit hero"
+      matIconName="edit"
       [routerLink]="['/heroes', hero.id, 'edit']"
     />
     <app-delete-hero [hero]="hero" (heroDeleted)="onHeroDeleted($event)" />
