@@ -3,6 +3,7 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Hero } from '../../../../core/models/hero.model';
+import { HeaderComponent } from '../../../../layout/header/header.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { DeleteHeroComponent } from '../../components/delete-hero/delete-hero.component';
 import { HeroService } from '../../services/hero.service';
@@ -10,7 +11,13 @@ import { HeroService } from '../../services/hero.service';
 @Component({
   selector: 'app-hero-detail',
   standalone: true,
-  imports: [UpperCasePipe, ButtonComponent, RouterModule, DeleteHeroComponent],
+  imports: [
+    UpperCasePipe,
+    ButtonComponent,
+    RouterModule,
+    DeleteHeroComponent,
+    HeaderComponent,
+  ],
   templateUrl: './hero-detail.component.html',
   styleUrl: './hero-detail.component.scss',
 })
